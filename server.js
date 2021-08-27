@@ -1,6 +1,6 @@
-const http = require('http'), // HTTP Module
-url = require('url'),         // URL Module
-fs = require('fs');           // FS Module
+const http = require('http'), // HTTP Modules
+url = require('url'),         // URL Modules
+fs = require('fs');           // FS Modules
 
 http.createServer((request, response) => {
   let addr = request.url,
