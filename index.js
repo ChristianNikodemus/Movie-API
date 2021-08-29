@@ -1,8 +1,11 @@
-const express = require('express')
+const express = require('express'),
+  morgan = require('morgan');
 
 const app = express();
 
 app.use(express.static('public'));
+
+app.use(morgan('common'));
 
 // JSON object containing my top 10 movies
 let topMovies = [
