@@ -1,5 +1,8 @@
-const express = require('express');
+const express = require('express')
+
 const app = express();
+
+app.use(express.static('public'));
 
 // JSON object containing my top 10 movies
 let topMovies = [
@@ -65,6 +68,14 @@ let topMovies = [
     }
 ];
 
+app.get('/', (req, res) => {
+    res.send('Welcome to my movie club!');
+  });
+
 app.get('/movies', (req, res) => {
-    res.json(topTenMovies);
+    res.json(topMovies);
+  });
+  
+app.listen(8080, () => {
+    console.log('Your app is listening on port 8080.');
   });
