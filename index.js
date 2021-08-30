@@ -156,36 +156,54 @@ app.get('/', (req, res) => {
     res.send('Welcome to my movie club!');
   });
 
-// Gets list of all the movies
+// Return a list of ALL movies to the user
 app.get('/movies', (req, res) => {
-    res.json(topMovies);
+    res.json(topMovies)
+    .catch((error) => {
+        console.error(error);
+        res.satus(500).send('Error: ' + error);
+      });
   });
 
-// Gets data about movie by title
+// Return data (description, genre, director, image URL, whether it’s featured or not) about a single movie by title to the user
 app.get('/movies/:title', (req, res) => {
     res.json(topMovies.find((movie) => {
       return movie.title === req.params.title
-    }));
+    }))
+    .catch((error) => {
+        console.error(error);
+        res.satus(500).send('Error: ' + error);
+      });
   });
 
-// Gets list of all the genres
+// Gets list of all the genres (Extra)
 app.get('/genres', (req, res) => {
-    res.json(genreTypes);
+    res.json(genreTypes)
+    .catch((error) => {
+        console.error(error);
+        res.satus(500).send('Error: ' + error);
+      });
   });
 
-// Gets data about movie genre by name
+// Return data about a genre (description) by name/title (e.g., “Thriller”)
 app.get('/genres/:title', (req, res) => {
     res.json(genreTypes.find((genre) => {
         return genre.title === req.params.title
-    }));
+    }))
+    .catch((error) => {
+        console.error(error);
+        res.satus(500).send('Error: ' + error);
+      });
   });
 
-// Directs user to landing page to create account
+// Return data about a director (bio, birth year, death year) by name
+
+// Allow new users to register
 app.post('/register', (req, res) => {
     userAccounts.findOne({ email: req.body.email})
     .then((user) => {
       if (user) {
-        return res.status(400).send(req.body.email + 'already exists');
+        return res.status(400).send(req.body.email + 'This email is already registered.');
       } else {
         userAccounts.create({
           firstname: req.body.firstname,
@@ -205,6 +223,14 @@ app.post('/register', (req, res) => {
       res.satus(500).send('Error: ' + error);
     });
   });
+
+// Allow users to update their user info (username)
+
+// Allow users to add a movie to their list of favorites (showing only a text that a movie has been added—more on this later)
+
+// Allow users to remove a movie from their list of favorites (showing only a text that a movie has been removed—more on this later)
+
+// Allow existing users to deregister (showing only a text that a user email has been removed—more on this later)
 
 // Error response
 app.use((err, req, res, next) => {
