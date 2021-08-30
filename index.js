@@ -151,29 +151,29 @@ let userAccounts = [
 //let src = document.getElementById('x');
 //src.appendChild(img);
 
-//Welcome message
+// Welcome message
 app.get('/', (req, res) => {
     res.send('Welcome to my movie club!');
   });
 
-//Gets list of all the movies
+// Gets list of all the movies
 app.get('/movies', (req, res) => {
     res.json(topMovies);
   });
 
-//Gets data about movie by title
+// Gets data about movie by title
 app.get('/movies/:title', (req, res) => {
     res.json(topMovies.find((movie) => {
       return movie.title === req.params.title
     }));
   });
 
-//Gets list of all the genres
+// Gets list of all the genres
 app.get('/genres', (req, res) => {
     res.json(genreTypes);
   });
 
-//Gets data about movie genre by name
+// Gets data about movie genre by name
 app.get('/genres/:title', (req, res) => {
     res.json(genreTypes.find((genre) => {
         return genre.title === req.params.title
@@ -182,19 +182,31 @@ app.get('/genres/:title', (req, res) => {
 
 // Directs user to landing page to create account
 app.post('/register', (req, res) => {
-    let newAccount = req.body;
-  
-    if (!newAccount.title) {
-      const message = 'Missing movie title in request body';
-      res.status(400).send(message);
-    } else {
-      newAccount.id = uuid.v4();
-      userAccounts.push(newAccount);
-      res.status(201).send(newAccount);
-    }
+    userAccounts.findOne({ email: req.body.email})
+    .then((user) => {
+      if (user) {
+        return res.status(400).send(req.body.email + 'already exists');
+      } else {
+        userAccounts.create({
+          firstname: req.body.firstname,
+          lastname: req.body.lastname,
+          username: req.body.username,
+          email: req.body.email,
+          password: req.body.password
+        }).then((user) => {res.status(201).json(user)})
+        .catch((error) => {
+          console.error(error);
+          res.status(500).send('Error: ' + error);
+        })
+      }
+    })
+    .catch((error) => {
+      console.error(error);
+      res.satus(500).send('Error: ' + error);
+    });
   });
 
-//Error response
+// Error response
 app.use((err, req, res, next) => {
     console.error(err.stack);
     res.status(500).send('Uh oh, something broke!');
