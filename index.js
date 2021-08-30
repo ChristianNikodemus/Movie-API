@@ -15,85 +15,99 @@ app.use(morgan('common'));
 // JSON object containing my top 10 movies
 let topMovies = [
     {
-        id: '1',
         title: 'Pulp Fiction',
         director: 'Quentin Tarantino',
         year: '1994',
+        description: 'The lives of two mob hitmen, a boxer, a gangster and his wife, and a pair of diner bandits intertwine in four tales of violence and redemption.',
+        genre: 'Crime/Drama',
         //image: img.src = '/public/img/pulpfiction.png'
     },
     {
-        id: '2',
         title: 'The Lord of the Rings: The Return of the King',
         director: 'Peter Jackson',
-        year: '2003'
+        year: '2003',
+        description: '',
+        genre: ''
     },
     {
-        id: '3',
         title: 'Forest Gump',
         director: 'Robert Zemeckis',
-        year: '1994'
+        year: '1994',
+        description: '',
+        genre: ''
     },
     {
-        id: '4',
         title: 'Back to the Future',
         director: 'Robert Zemeckis',
-        year: '1985'
+        year: '1985',
+        description: '',
+        genre: ''
     },
     {
-        id: '5',
         title: 'The Lion King',
         director: 'Roger Allers & Rob Minkoff',
-        year: '1960'
+        year: '1960',
+        description: '',
+        genre: ''
     },
     {
-        id: '6',
         title: 'Psycho',
         director: 'Alfred Hitchcock',
-        year: '1960'
+        year: '1960',
+        description: '',
+        genre: ''
     },
     {
-        id: '7',
         title: 'Django Unchained',
         director: 'Quentin Tarantino',
-        year: '2012'
+        year: '2012',
+        description: '',
+        genre: ''
     },
     {
-        id: '8',
         title: '2001: A Space Odyssey',
         director: 'Stanley Kubrick',
-        year: '1968'
+        year: '1968',
+        description: '',
+        genre: ''
     },
     {
-        id: '9',
         title: 'Finding Nemo',
         director: 'Andrew Stanton',
-        year: '2003'
+        year: '2003',
+        description: '',
+        genre: ''
     },
     {
-        id: '10',
         title: 'No Country for Old Men',
         director: 'Ethan Coen & Joel Coen',
-        year: '2007'
+        year: '2007',
+        description: '',
+        genre: ''
     }
 ];
 
 //let src = document.getElementById('x');
 //src.appendChild(img);
 
+//Welcome message
 app.get('/', (req, res) => {
     res.send('Welcome to my movie club!');
   });
 
+//Gets list of all movies
 app.get('/movies', (req, res) => {
     res.json(topMovies);
   });
 
+//Gets list of specific movie by title
 app.get('/movies/:title', (req, res) => {
     res.json(topMovies.find((movie) => {
       return movie.title === req.params.title
     }));
   });
 
+//Error response
 app.use((err, req, res, next) => {
     console.error(err.stack);
     res.status(500).send('Uh oh, something broke!');
