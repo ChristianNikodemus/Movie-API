@@ -14,6 +14,7 @@ let topMovies = [
         title: 'Pulp Fiction',
         director: 'Quentin Tarantino',
         year: '1994'
+        img.src = "image.png";
     },
     {
         id: '2',
@@ -77,6 +78,12 @@ app.get('/', (req, res) => {
 
 app.get('/movies', (req, res) => {
     res.json(topMovies);
+  });
+
+app.get('/movies/:title', (req, res) => {
+    res.json(topMovies.find((movie) => {
+      return movie.title === req.params.title
+    }));
   });
 
 app.use((err, req, res, next) => {

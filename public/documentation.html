@@ -22,14 +22,22 @@
           <td>/movies</td>
           <td>GET</td>
           <td>n/a</td>
-          <td>JSON object containing data of all the movies in the database</td>
+          <td>A JSON array of objects containing data of all the movies of the database</td>
         </tr>
         <tr>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
+          <td>Get data about movie by title</td>
+          <td>/movies/[title]</td>
+          <td>GET</td>
+          <td>n/a</td>
+          <td>A JSON object containing data of the specified movie<br>
+          Example:<br>
+          {<br>
+            "id": "6",<br>
+            "title": "Psycho",<br>
+            "director": "Alfred Hitchcock",<br>
+            "year": "1960"<br>
+          }
+        </td>
         </tr>
       </table>
   </body>
