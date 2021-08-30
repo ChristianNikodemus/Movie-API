@@ -138,6 +138,16 @@ let genreTypes = [
     }
 ];
 
+let userAccounts = [
+    {
+        firstname: 'Christian',
+        lastname: 'Nikodemus',
+        username: 'ChrisNiko',
+        email: 'christian.nikodemus@gmail.com',
+        password: 'careerfoundryrules'
+    }
+];
+
 //let src = document.getElementById('x');
 //src.appendChild(img);
 
@@ -168,6 +178,20 @@ app.get('/genres/:title', (req, res) => {
     res.json(genreTypes.find((genre) => {
         return genre.title === req.params.title
     }));
+  });
+
+// Directs user to landing page to create account
+app.post('/register', (req, res) => {
+    let newAccount = req.body;
+  
+    if (!newAccount.title) {
+      const message = 'Missing movie title in request body';
+      res.status(400).send(message);
+    } else {
+      newAccount.id = uuid.v4();
+      userAccounts.push(newAccount);
+      res.status(201).send(newAccount);
+    }
   });
 
 //Error response
