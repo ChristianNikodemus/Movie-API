@@ -87,6 +87,57 @@ let topMovies = [
     }
 ];
 
+let genreTypes = [
+    {
+        title: 'Crime',
+        description: 'Crime fiction, detective story, murder mystery, mystery novel, and police novel are terms used to describe narratives that centre on criminal acts and especially on the investigation, either by an amateur or a professional detective, of a serious crime, generally a murder.'
+    },
+    {
+        title: 'Drama',
+        description: 'In film and television, drama is a category of narrative fiction (or semi-fiction) intended to be more serious than humorous in tone. Drama of this kind is usually qualified with additional terms that specify its particular super-genre, macro-genre, or micro-genre,[2] such as soap opera (operatic drama), police crime drama, political drama, legal drama, historical drama, domestic drama, teen drama, and comedy-drama (dramedy).'
+    },
+    {
+        title: 'Action',
+        description: 'Action fiction is the literary genre that includes spy novels, adventure stories, tales of terror and intrigue ("cloak and dagger") and mysteries. This kind of story utilizes suspense, the tension that is built up when the reader wishes to know how the conflict between the protagonist and antagonist is going to be resolved or what the solution to the puzzle of a thriller is.'
+    },
+    {
+        title: 'Adventure',
+        description: 'Adventure fiction is a genre of fiction that usually presents danger, or gives the reader a sense of excitement.'
+    },
+    {
+        title: 'Romance',
+        description: 'A genre of film of which the central plot focuses on the romantic relationships of the protagonists.'
+    },
+    {
+        title: 'Comedy',
+        description: 'Comedy may be divided into multiple genres based on the source of humor, the method of delivery, and the context in which it is delivered. These classifications overlap, and most comedians can fit into multiple genres. For example, deadpan comics often fall into observational comedy, or into black comedy or blue comedy to contrast the morbidity, or offensiveness of the joke with a lack of emotion.'
+    },
+    {
+        title: 'Sci-Fi',
+        description: 'Science fiction (sometimes shortened to sci-fi or SF) is a genre of speculative fiction that typically deals with imaginative and futuristic concepts such as advanced science and technology, space exploration, time travel, parallel universes, and extraterrestrial life. It has been called the "literature of ideas", and often explores the potential consequences of scientific, social, and technological innovations.'
+    },
+    {
+        title: 'Animation',
+        description: 'Animation is a method in which figures are manipulated to appear as moving images. In traditional animation, images are drawn or painted by hand on transparent celluloid sheets to be photographed and exhibited on film.'
+    },
+    {
+        title: 'Horror',
+        description: 'Horror is a genre of speculative fiction which is intended to frighten, scare, or disgust.'
+    },
+    {
+        title: 'Mystery',
+        description: 'Mystery is a fiction genre where the nature of an event, usually a murder or other crime, remains mysterious until the end of the story.'
+    },
+    {
+        title: 'Thriller',
+        description: 'Thriller is a genre of fiction, having numerous, often overlapping subgenres. Thrillers are characterized and defined by the moods they elicit, giving viewers heightened feelings of suspense, excitement, surprise, anticipation and anxiety.'
+    },
+    {
+        title: 'Western',
+        description: 'Western is a genre of fiction set primarily in the latter half of the 19th and early 20th century in the Western United States, which is styled the "Old West".'
+    }
+];
+
 //let src = document.getElementById('x');
 //src.appendChild(img);
 
@@ -95,15 +146,27 @@ app.get('/', (req, res) => {
     res.send('Welcome to my movie club!');
   });
 
-//Gets list of all movies
+//Gets list of all the movies
 app.get('/movies', (req, res) => {
     res.json(topMovies);
   });
 
-//Gets list of specific movie by title
+//Gets data about movie by title
 app.get('/movies/:title', (req, res) => {
     res.json(topMovies.find((movie) => {
       return movie.title === req.params.title
+    }));
+  });
+
+//Gets list of all the genres
+app.get('/genres', (req, res) => {
+    res.json(genreTypes);
+  });
+
+//Gets data about movie genre by name
+app.get('/genres/:title', (req, res) => {
+    res.json(genreTypes.find((genre) => {
+        return genre.title === req.params.title
     }));
   });
 

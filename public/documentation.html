@@ -18,14 +18,14 @@
           <th>Response data</th>
         </tr>
         <tr>
-          <td>Get a list of all the movies</td>
+          <td>Gets list of all the movies</td>
           <td>/movies</td>
           <td>GET</td>
           <td>n/a</td>
           <td>A JSON array of objects containing data of all the movies of the database</td>
         </tr>
         <tr>
-          <td>Get data about movie by title</td>
+          <td>Gets data about movie by title</td>
           <td>/movies/[title]</td>
           <td>GET</td>
           <td>n/a</td>
@@ -38,7 +38,26 @@
             "description": "The lives of two mob hitmen, a boxer, a gangster and his wife, and a pair of diner bandits intertwine in four tales of violence and redemption."<br>
             "genre": "Crime/ Drama"<br>
           }
-        </td>
+        </tr>
+        <tr>
+          <td>Gets data about movie genre by name</td>
+          <td>/genres/[title]</td>
+          <td>GET</td>
+          <td>n/a</td>
+          <td>A JSON object containing data of the specified genre<br>
+            Example:<br>
+            {<br>
+              "title": Crime,<br>
+              "description": "Crime fiction, detective story, murder mystery, mystery novel, and police novel are terms used to describe narratives that centre on criminal acts and especially on the investigation, either by an amateur or a professional detective, of a serious crime, generally a murder."<br>
+            }
+          </td>
+        </tr>
+        <tr>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
         </tr>
       </table>
   </body>
