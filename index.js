@@ -1,6 +1,11 @@
 const express = require('express'),
   morgan = require('morgan');
 
+//const jsdom = require('jsdom');
+//const { JSDOM } = jsdom;
+//global.document = new JSDOM(html).window.document;
+//let img = document.createElement('img');
+
 const app = express();
 
 app.use(express.static('public'));
@@ -13,8 +18,8 @@ let topMovies = [
         id: '1',
         title: 'Pulp Fiction',
         director: 'Quentin Tarantino',
-        year: '1994'
-        img.src = "image.png";
+        year: '1994',
+        //image: img.src = '/public/img/pulpfiction.png'
     },
     {
         id: '2',
@@ -71,6 +76,9 @@ let topMovies = [
         year: '2007'
     }
 ];
+
+//let src = document.getElementById('x');
+//src.appendChild(img);
 
 app.get('/', (req, res) => {
     res.send('Welcome to my movie club!');
