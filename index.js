@@ -1,10 +1,6 @@
 const express = require('express'),
-  morgan = require('morgan');
-
-//const jsdom = require('jsdom');
-//const { JSDOM } = jsdom;
-//global.document = new JSDOM(html).window.document;
-//let img = document.createElement('img');
+  morgan = require('morgan'),
+  uuid = require('uuid');
 
 const app = express();
 
@@ -20,7 +16,7 @@ let topMovies = [
         year: '1994',
         description: 'The lives of two mob hitmen, a boxer, a gangster and his wife, and a pair of diner bandits intertwine in four tales of violence and redemption.',
         genre: 'Crime/ Drama',
-        //image: img.src = '/public/img/pulpfiction.png'
+        image: '/img/pulpfiction.png'
     },
     {
         title: 'The Lord of the Rings: The Return of the King',
@@ -160,9 +156,6 @@ let directors = [
     }
 ];
 
-//let src = document.getElementById('x');
-//src.appendChild(img);
-
 // Welcome message
 app.get('/', (req, res) => {
     res.send('Welcome to my movie club!');
@@ -171,10 +164,6 @@ app.get('/', (req, res) => {
 // Return a list of ALL movies to the user
 app.get('/movies', (req, res) => {
     res.json(topMovies)
-    .catch((error) => {
-        console.error(error);
-        res.satus(500).send('Error: ' + error);
-      });
   });
 
 // Return data (description, genre, director, image URL, whether it’s featured or not) about a single movie by title to the user
@@ -182,19 +171,11 @@ app.get('/movies/:title', (req, res) => {
     res.json(topMovies.find((movie) => {
       return movie.title === req.params.title
     }))
-    .catch((error) => {
-        console.error(error);
-        res.satus(500).send('Error: ' + error);
-      });
   });
 
 // Gets list of all the genres (Extra)
 app.get('/genres', (req, res) => {
     res.json(genreTypes)
-    .catch((error) => {
-        console.error(error);
-        res.satus(500).send('Error: ' + error);
-      });
   });
 
 // Return data about a genre (description) by name/title (e.g., “Thriller”)
@@ -202,50 +183,30 @@ app.get('/genres/:title', (req, res) => {
     res.json(genreTypes.find((genre) => {
         return genre.title === req.params.title
     }))
-    .catch((error) => {
-        console.error(error);
-        res.satus(500).send('Error: ' + error);
-      });
   });
 
 // Return data about a director (bio, birth year, death year) by name
 app.get('/director/:name', (req, res) => {
     res.json(directors.find((dir) => {
-        return dir.title === req.params.name
+        return dir.name === req.params.name
     }))
-    .catch((error) => {
-        console.error(error);
-        res.satus(500).send('Error: ' + error);
-      });
   });
 
 // Allow new users to register
 app.post('/register', (req, res) => {
-    userAccounts.findOne({ email: req.body.email})
-    .then((user) => {
-      if (user) {
-        return res.status(400).send(req.body.email + 'This email is already registered.');
-      } else {
-        userAccounts.create({
-          firstname: req.body.firstname,
-          lastname: req.body.lastname,
-          username: req.body.username,
-          email: req.body.email,
-          password: req.body.password
-        }).then((user) => {res.status(201).json(user)})
-        .catch((error) => {
-          console.error(error);
-          res.status(500).send('Error: ' + error);
-        })
-      }
-    })
-    .catch((error) => {
-      console.error(error);
-      res.satus(500).send('Error: ' + error);
-    });
+    const user = req.body;
+    user.id = uuid.v4();
+    userAccounts.push(user);
+    res.status(201).json(user);
   });
 
 // Allow users to update their user info (username)
+app.put('/register/:email', (req, res) => {
+    const user = req.body;
+    const index = userAccounts.findIndex((u) => u.email === req.params.email);
+    userAccounts[index] = user;
+    res.status(200).json(user);
+  });
 
 // Allow users to add a movie to their list of favorites (showing only a text that a movie has been added—more on this later)
 
