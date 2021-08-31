@@ -173,11 +173,6 @@ app.get('/movies/:title', (req, res) => {
     }))
   });
 
-// Gets list of all the genres (Extra)
-app.get('/genres', (req, res) => {
-    res.json(genreTypes)
-  });
-
 // Return data about a genre (description) by name/title (e.g., “Thriller”)
 app.get('/genres/:title', (req, res) => {
     res.json(genreTypes.find((genre) => {
