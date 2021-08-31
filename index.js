@@ -148,6 +148,18 @@ let userAccounts = [
     }
 ];
 
+let directors = [
+    {
+
+    },
+    {
+
+    },
+    {
+
+    }
+];
+
 //let src = document.getElementById('x');
 //src.appendChild(img);
 
@@ -197,6 +209,15 @@ app.get('/genres/:title', (req, res) => {
   });
 
 // Return data about a director (bio, birth year, death year) by name
+app.get('/director/:name', (req, res) => {
+    res.json(directors.find((dir) => {
+        return dir.title === req.params.name
+    }))
+    .catch((error) => {
+        console.error(error);
+        res.satus(500).send('Error: ' + error);
+      });
+  });
 
 // Allow new users to register
 app.post('/register', (req, res) => {
