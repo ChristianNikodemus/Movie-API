@@ -18,15 +18,22 @@
           <th>Response data</th>
         </tr>
         <tr>
-          <td>Gets list of all the movies</td>
+          <td>Welcome user with message</td>
+          <td>/</td>
+          <td>GET</td>
+          <td>n/a</td>
+          <td>A string containing the greeting message</td>
+        </tr>
+        <tr>
+          <td>Return a list of ALL movies to the user</td>
           <td>/movies</td>
           <td>GET</td>
           <td>n/a</td>
           <td>A JSON array of objects containing data of all the movies of the database</td>
         </tr>
         <tr>
-          <td>Gets data about movie by title</td>
-          <td>/movies/[title]</td>
+          <td>Return data (description, genre, director, image URL, whether it’s featured or not) about a single movie by title to the user</td>
+          <td>/movies/:title</td>
           <td>GET</td>
           <td>n/a</td>
           <td>A JSON object containing data of the specified movie<br>
@@ -40,8 +47,8 @@
           }
         </tr>
         <tr>
-          <td>Gets data about movie genre by name</td>
-          <td>/genres/[title]</td>
+          <td>Return data about a genre (description) by name/title (e.g., “Thriller”)</td>
+          <td>/genres/:title</td>
           <td>GET</td>
           <td>n/a</td>
           <td>A JSON object containing data of the specified genre<br>
@@ -53,9 +60,67 @@
           </td>
         </tr>
         <tr>
-          <td>Directs user to landing page to create account</td>
+          <td>Return data about a director (bio, birth year, death year) by name</td>
+          <td>/directors/:name</td>
+          <td>GET</td>
+          <td>n/a</td>
+          <td>A JSON object containing data of the specified genre<br>
+            Example:<br>
+            {<br>
+              "title": Crime,<br>
+              "description": "Crime fiction, detective story, murder mystery, mystery novel, and police novel are terms used to describe narratives that centre on criminal acts and especially on the investigation, either by an amateur or a professional detective, of a serious crime, generally a murder."<br>
+            }
+          </td>
+        </tr>
+        <tr>
+          <td>Allow new users to register</td>
           <td>/register</td>
           <td>POST</td>
+          <td>A JSON object containing data of the new user<br>
+          Example:<br>
+          {<br>
+            "name": "Nick Crawford",<br>
+            "username": "Nickypoo62",<br>
+            "email": "nick.crawford@gmail.com",<br>
+            "password": "catsaretheworst"<br>
+          }
+          </td>
+          <td>A JSON object containing data of the new user that was added<br>
+            Example:<br>
+            {<br>
+              "name": "Nick Crawford",<br>
+              "username": "Nickypoo62",<br>
+              "email": "nick.crawford@gmail.com",<br>
+              "password": "catsaretheworst"<br>
+            }
+          </td>
+        </tr>
+        <tr>
+          <td>Allow users to update their user info (username)</td>
+          <td>/register/:username</td>
+          <td>PUT</td>
+          <td>A JSON object containing data of the updated username<br>
+            Example:<br>
+            {<br>
+              "username": "Chrissy",<br>
+            }
+          </td>
+          <td>A return message communicating the success or failure of the change to username<br>
+            Example:<br>
+            Your username has now been changed to: Chrissy
+          </td>
+        </tr>
+        <tr>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td></td>
+          <td></td>
+          <td></td>
           <td></td>
           <td></td>
         </tr>
