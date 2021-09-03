@@ -212,9 +212,6 @@ let directors = [
 let myFavourites = [
     {
         title: 'Pulp Fiction'
-    },
-    {
-        
     }
 ];
 
@@ -263,7 +260,7 @@ app.post('/register', (req, res) => {
     }
   });
 
-/* Having trouble with this one
+// Having trouble with this one
 // Allow users to update their user info (username)
   app.put('/register/:username', (req, res) => {
     let user = userAccounts.find((user) => { return user.username === req.params.username });
@@ -275,9 +272,21 @@ app.post('/register', (req, res) => {
       res.status(404).send('Sorry, could not change username, your username is currently: '+ req.params.username + ', please try again!');
     }
   });
-*/
+
 
 // Allow users to add a movie to their list of favorites (showing only a text that a movie has been added—more on this later)
+app.post('/favourites', (req, res) => {
+    let newFavourite = req.body;
+  
+    if (!newFavourite.title) {
+      const message = 'Missing movie title in request body';
+      res.status(400).send(message);
+    } else {
+      newFavourite.id = uuid.v4();
+      myFavourites.push(newFavourite);
+      res.status(201).send(newFavourite.title +' Has been added to your favourites!');
+    }
+  });
 
 // Allow users to remove a movie from their list of favorites (showing only a text that a movie has been removed—more on this later)
 

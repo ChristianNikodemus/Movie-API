@@ -111,11 +111,19 @@
           </td>
         </tr>
         <tr>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
+          <td>Allow users to add a movie to their list of favorites</td>
+          <td>/favourites</td>
+          <td>POST</td>
+          <td>A JSON object containing data of the new favourite movie entry<br>
+            Example:<br>
+            {<br>
+              "title": "Pirates of the Caribbean",<br>
+            } 
+          </td>
+          <td>A return message communicating that the new favourite movie entry has been added<br>
+            Example:<br>
+            Pirates of the Caribbean Has been added to your favourites!
+          </td>
         </tr>
         <tr>
           <td></td>
