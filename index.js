@@ -247,7 +247,7 @@ app.get('/directors/:name', (req, res) => {
   });
 
 // Allow new users to register
-app.post('/register', (req, res) => {
+app.post('/users', (req, res) => {
     let newUser = req.body;
   
     if (!newUser.name) {
@@ -259,20 +259,20 @@ app.post('/register', (req, res) => {
       res.status(201).send(newUser);
     }
   });
-
-// Having trouble with this one
+  
+/*
 // Allow users to update their user info (username)
-  app.put('/register/:username', (req, res) => {
-    let user = userAccounts.find((user) => { return user.username === req.params.username });
+  app.put('/users/:username', (req, res) => {
+    let user = userAccounts.find((user) => { return user.name === req.params.name });
   
     if (user) {
-      user.username[req.params.username] = parseInt(req.params.username);
+      user.name[req.params.name] = parseInt(req.params.username);
       res.status(201).send('Your username has now been changed to: ' + req.params.username);
     } else {
       res.status(404).send('Sorry, could not change username, your username is currently: '+ req.params.username + ', please try again!');
     }
   });
-
+*/
 
 // Allow users to add a movie to their list of favorites (showing only a text that a movie has been added—more on this later)
 app.post('/favourites', (req, res) => {
@@ -288,9 +288,24 @@ app.post('/favourites', (req, res) => {
     }
   });
 
-// Allow users to remove a movie from their list of favorites (showing only a text that a movie has been removed—more on this later)
+app.delete('/favourites/:title', (req, res) => {
+  let favourite = myFavourites.find((favourite) => { return favourite.id === req.params.id });
+
+  if (favourite) {
+    myFavourites = myFavourites.filter((obj) => { return obj.id !== req.params.id });
+    res.status(201).send('The movie: ' + req.params.title + ' was deleted.');
+  }
+});
 
 // Allow existing users to deregister (showing only a text that a user email has been removed—more on this later)
+app.delete('/users/:name', (req, res) => {
+    let user = userAccounts.find((user) => { return user.id === req.params.id });
+  
+    if (user) {
+      userAccounts = userAccounts.filter((obj) => { return obj.id !== req.params.id });
+      res.status(201).send('The account belonging to: ' + req.params.name + ' was deleted.');
+    }
+  });
 
 // Error response
 app.use((err, req, res, next) => {

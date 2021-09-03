@@ -33,7 +33,7 @@
         </tr>
         <tr>
           <td>Return data (description, genre, director, image URL, whether it’s featured or not) about a single movie by title to the user</td>
-          <td>/movies/:title</td>
+          <td>/movies/[title]</td>
           <td>GET</td>
           <td>n/a</td>
           <td>A JSON object containing data of the specified movie<br>
@@ -48,7 +48,7 @@
         </tr>
         <tr>
           <td>Return data about a genre (description) by name/title (e.g., “Thriller”)</td>
-          <td>/genres/:title</td>
+          <td>/genres/[title]</td>
           <td>GET</td>
           <td>n/a</td>
           <td>A JSON object containing data of the specified genre<br>
@@ -61,7 +61,7 @@
         </tr>
         <tr>
           <td>Return data about a director (bio, birth year, death year) by name</td>
-          <td>/directors/:name</td>
+          <td>/directors/[name]</td>
           <td>GET</td>
           <td>n/a</td>
           <td>A JSON object containing data of the specified genre<br>
@@ -97,7 +97,7 @@
         </tr>
         <tr>
           <td>Allow users to update their user info (username)</td>
-          <td>/register/:username</td>
+          <td>/register/[username]</td>
           <td>PUT</td>
           <td>A JSON object containing data of the updated username<br>
             Example:<br>
@@ -127,17 +127,23 @@
         </tr>
         <tr>
           <td>Allow users to remove a movie from their list of favorites</td>
-          <td>/favourites/:title</td>
+          <td>/favourites/[title]</td>
           <td>DELETE</td>
-          <td></td>
-          <td></td>
+          <td>A JSON object containing the data of the movie that will be deleted</td>
+          <td>A return message communicating that the movie has been deleted<br>
+            Example:<br>
+            The movie: Pulp Fiction was deleted.
+          </td>
         </tr>
         <tr>
           <td>Allow existing users to deregister</td>
-          <td></td>
+          <td>/userAccounts/[name]</td>
           <td>DELETE</td>
-          <td></td>
-          <td></td>
+          <td>A JSON object containing a username in which will delete the associated account</td>
+          <td>A return message communicating that the user has been deleted<br>
+            Example:<br>
+            The account belonging to: Christian Nikodemus was deleted.
+          </td>
         </tr>
       </table>
   </body>
