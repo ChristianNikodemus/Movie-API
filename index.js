@@ -259,20 +259,18 @@ app.post('/users', (req, res) => {
       res.status(201).send(newUser);
     }
   });
-  
-/*
+
 // Allow users to update their user info (username)
   app.put('/users/:username', (req, res) => {
-    let user = userAccounts.find((user) => { return user.name === req.params.name });
-  
+    let user = userAccounts.find((user) => { return user.username === req.params.username });
+
     if (user) {
-      user.name[req.params.name] = parseInt(req.params.username);
-      res.status(201).send('Your username has now been changed to: ' + req.params.username);
+      user.username = req.body.username;
+      res.status(201).send('Your username has now been changed to: ' + req.body.username);
     } else {
       res.status(404).send('Sorry, could not change username, your username is currently: '+ req.params.username + ', please try again!');
     }
   });
-*/
 
 // Allow users to add a movie to their list of favorites (showing only a text that a movie has been added—more on this later)
 app.post('/favourites', (req, res) => {
