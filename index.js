@@ -86,6 +86,7 @@ let topMovies = [
     }
 ];
 
+// JSON object containing genres
 let genreTypes = [
     {
         title: 'Crime',
@@ -137,6 +138,7 @@ let genreTypes = [
     }
 ];
 
+// JSON object containing user accounts
 let userAccounts = [
     {
         name: 'Christian Nikodemus',
@@ -146,6 +148,7 @@ let userAccounts = [
     }
 ];
 
+// JSON object containing directors
 let directors = [
     {
         name: 'Quentin Tarantino',
@@ -209,6 +212,7 @@ let directors = [
     }
 ];
 
+// JSON object containing users favourite movies
 let myFavourites = [
     {
         title: 'Pulp Fiction'
