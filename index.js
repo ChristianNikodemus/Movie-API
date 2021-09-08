@@ -144,7 +144,11 @@ let userAccounts = [
         name: 'Christian Nikodemus',
         username: 'ChrisNiko',
         email: 'christian.nikodemus@gmail.com',
-        password: 'careerfoundryrules'
+        password: 'careerfoundryrules',
+        favouriteMovies: [
+            {
+            title: 'Pulp Fiction'
+        }]
     }
 ];
 
@@ -212,13 +216,6 @@ let directors = [
     }
 ];
 
-// JSON object containing users favourite movies
-let myFavourites = [
-    {
-        title: 'Pulp Fiction'
-    }
-];
-
 // Welcome message
 app.get('/', (req, res) => {
     res.send('Welcome to my movie club!');
@@ -250,6 +247,18 @@ app.get('/directors/:name', (req, res) => {
     }))
   });
 
+// Get list of all users
+app.get('/users/:username', (req, res) => {
+    const user = userAccounts.find((user) => {
+        return user.username === req.params.username
+    })
+    if (user) {
+        res.json(user)
+    } else {
+        res.status(404).send('Sorry, user not found.');
+    }
+  });
+
 // Allow new users to register
 app.post('/users', (req, res) => {
     let newUser = req.body;
@@ -260,44 +269,48 @@ app.post('/users', (req, res) => {
     } else {
       newUser.id = uuid.v4();
       userAccounts.push(newUser);
-      res.status(201).send(newUser);
+      res.status(201).json(newUser);
     }
   });
 
 // Allow users to update their user info (username)
   app.put('/users/:username', (req, res) => {
-    let user = userAccounts.find((user) => { return user.username === req.params.username });
+    let index = userAccounts.findIndex((user) => { return user.username === req.params.username });
 
-    if (user) {
-      user.username = req.body.username;
-      res.status(201).send('Your username has now been changed to: ' + req.body.username);
+    if (index >= 0) {
+        userAccounts[index] = Object.assign({}, userAccounts[index], req.body);
+      res.status(200).json(userAccounts[index]);
     } else {
       res.status(404).send('Sorry, could not change username, your username is currently: '+ req.params.username + ', please try again!');
     }
   });
-
+/*
 // Allow users to add a movie to their list of favorites (showing only a text that a movie has been added—more on this later)
-app.post('/favourites', (req, res) => {
-    let newFavourite = req.body;
-  
-    if (!newFavourite.title) {
-      const message = 'Missing movie title in request body';
-      res.status(400).send(message);
+app.post('users/:username/favourites', (req, res) => {
+    let index = userAccounts.findIndex((user) => {
+        return user.username === req.params.username
+    });
+    if (index >= 0) {
+        userAccounts[index].favouriteMovies.push(req.params.title)
+        res.status(200).json(userAccounts[index]);
     } else {
-      newFavourite.id = uuid.v4();
-      myFavourites.push(newFavourite);
-      res.status(201).send(newFavourite.title +' Has been added to your favourites!');
+        res.status(404).send('Sorry, the user has not been found.');
     }
   });
 
-app.delete('/favourites/:title', (req, res) => {
-  let favourite = myFavourites.find((favourite) => { return favourite.id === req.params.id });
-
-  if (favourite) {
-    myFavourites = myFavourites.filter((obj) => { return obj.id !== req.params.id });
-    res.status(201).send('The movie: ' + req.params.title + ' was deleted.');
-  }
+app.delete('users/:username/favourites/:title', (req, res) => {
+    let index = userAccounts.findIndex((user) => {
+        return user.username === req.params.username
+    });
+    if (index >= 0) {
+        userAccounts[index].favouriteMovies = userAccounts[index].favouriteMovies
+        .filter((title) => title !== req.params.title)
+        res.status(201).json(userAccounts[index]);
+    } else {
+        res.status(404).send('Sorry, the user has not been found.')
+    }
 });
+*/
 
 // Allow existing users to deregister (showing only a text that a user email has been removed—more on this later)
 app.delete('/users/:name', (req, res) => {
