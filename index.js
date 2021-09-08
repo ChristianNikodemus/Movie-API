@@ -147,7 +147,6 @@ let userAccounts = [
         password: 'careerfoundryrules',
         favouriteMovies: [
             {
-            title: 'Pulp Fiction'
         }]
     }
 ];
