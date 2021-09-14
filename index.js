@@ -53,10 +53,15 @@ app.get('/movies/:title', (req, res) => {
 
 // Return data about a genre (description) by name/title (e.g., “Thriller”)
 app.get('/genres/:title', (req, res) => {
-    res.json(genreTypes.find((genre) => {
-        return genre.title === req.params.title
-    }))
-  });
+  Genres.findOne({ Title: req.params.title })
+    .then((genre) => {
+      res.json(genre);
+    })
+    .catch((err) => {
+      console.error(err);
+      res.status(500).send('Error: ' + err);
+    });
+});
 
 // Return data about a director (bio, birth year, death year) by name
 app.get('/directors/:name', (req, res) => {
