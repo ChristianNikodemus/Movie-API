@@ -64,10 +64,15 @@ app.get('/genres/:title', (req, res) => {
 });
 
 // Return data about a director (bio, birth year, death year) by name
-app.get('/directors/:name', (req, res) => {
-    res.json(directors.find((dir) => {
-        return dir.name === req.params.name
-    }))
+  app.get('/directors/:name', (req, res) => {
+    Directors.findOne({ Name: req.params.name })
+      .then((director) => {
+        res.json(director);
+      })
+      .catch((err) => {
+        console.error(err);
+        res.status(500).send('Error: ' + err);
+      });
   });
 
 // Get list of all users
