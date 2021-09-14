@@ -41,10 +41,15 @@ app.get('/movies', (req, res) => {
 
 // Return data (description, genre, director, image URL, whether it’s featured or not) about a single movie by title to the user
 app.get('/movies/:title', (req, res) => {
-    res.json(topMovies.find((movie) => {
-      return movie.title === req.params.title
-    }))
-  });
+  Movies.findOne({ Title: req.params.title })
+    .then((movie) => {
+      res.json(movie);
+    })
+    .catch((err) => {
+      console.error(err);
+      res.status(500).send('Error: ' + err);
+    });
+});
 
 // Return data about a genre (description) by name/title (e.g., “Thriller”)
 app.get('/genres/:title', (req, res) => {
