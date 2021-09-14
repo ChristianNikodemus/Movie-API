@@ -8,6 +8,8 @@ const Models = require('./models.js');
 
 const Movies = Models.Movie;
 const Users = Models.User;
+const Genres = Models.Genre;
+const Directors = Models.Director;
 
 mongoose.connect('mongodb://localhost:27017/myFilmsDB', { useNewUrlParser: true, useUnifiedTopology: true });
 
@@ -22,13 +24,20 @@ app.use(morgan('common'));
 
 // Welcome message
 app.get('/', (req, res) => {
-    res.send('Welcome to my movie club!');
+    res.send('Welcome to my movie API Database!');
   });
 
 // Return a list of ALL movies to the user
 app.get('/movies', (req, res) => {
-    res.json(topMovies)
-  });
+  Movies.find()
+    .then((movies) => {
+      res.status(201).json(movies);
+    })
+    .catch((err) => {
+      console.error(err);
+      res.status(500).send('Error: ' + err);
+    });
+});
 
 // Return data (description, genre, director, image URL, whether it’s featured or not) about a single movie by title to the user
 app.get('/movies/:title', (req, res) => {
