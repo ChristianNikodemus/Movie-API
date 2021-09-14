@@ -17,7 +17,7 @@ let userSchema = mongoose.Schema({
     Email: {type: String, required: true},
     Password: {type: String, required: true},
     Birthday: Date,
-    FavoriteMovies: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Movie' }]
+    favouriteMovies: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Movie' }]
 });
 
 let genreSchema = mongoose.Schema({

@@ -126,17 +126,20 @@ app.get('/genres/:title', (req, res) => {
   });
 
 // Allow users to add a movie to their list of favorites
-app.post('/users/:username/favourites/:id', (req, res) => {
-    let index = userAccounts.findIndex((user) => {
-        return user.username === req.params.username
-    });
-    if (index >= 0) {
-        userAccounts[index].favouriteMovies.push(req.params.id)
-        res.status(200).json(userAccounts[index]);
+app.post('/users/:username/movies/:id', (req, res) => {
+  Users.findOneAndUpdate({ Username: req.params.username }, {
+     $push: { favouriteMovies: req.params.id }
+   },
+   { new: true }, // This line makes sure that the updated document is returned
+  (err, updatedUser) => {
+    if (err) {
+      console.error(err);
+      res.status(500).send('Error: ' + err);
     } else {
-        res.status(404).send('Sorry, the user has not been found.');
+      res.json(updatedUser);
     }
   });
+});
 
 // Allow users to remove a movie from their list of favorites
 app.delete('/users/:username/favourites/:id', (req, res) => {
@@ -152,15 +155,20 @@ app.delete('/users/:username/favourites/:id', (req, res) => {
     }
 });
 
-
 // Allow existing users to deregister
-app.delete('/users/:id', (req, res) => {
-    let user = userAccounts.find((user) => { return user._id === req.params.id });
-  
-    if (user) {
-      userAccounts = userAccounts.filter((obj) => { return obj.id !== req.params.id });
-      res.status(201).send('The account belonging to: ' + req.params.name + ' was deleted.');
-    }
+app.delete('/users/:username', (req, res) => {
+    Users.findOneAndRemove({ Username: req.params.username })
+      .then((user) => {
+        if (!user) {
+          res.status(400).send(req.params.username + ' was not found');
+        } else {
+          res.status(200).send(req.params.username + ' was deleted.');
+        }
+      })
+      .catch((err) => {
+        console.error(err);
+        res.status(500).send('Error: ' + err);
+      });
   });
 
 // Error response

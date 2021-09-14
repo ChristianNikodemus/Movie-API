@@ -160,17 +160,30 @@
         </tr>
         <tr>
           <td>Allow users to add a movie to their list of favorites</td>
-          <td>/favourites</td>
+          <td>/users/:username/movies/[id]</td>
           <td>POST</td>
           <td>A JSON object containing data of the new favourite movie entry<br>
             Example:<br>
             {<br>
-              "title": "Pirates of the Caribbean",<br>
-            } 
+              "_id": "ObjectId('614020b98cb22d9e16165cd1')"<br>
+          }<br>
           </td>
-          <td>A return message communicating that the new favourite movie entry has been added<br>
+          <td>A JSON object containing data of the user info including the favourite movie that was added<br>
             Example:<br>
-            Pirates of the Caribbean Has been added to your favourites!
+            {<br>
+              "_id": "6140bf1f70414be2585b3aea",<br>
+              "Name": "Christian Nikodemus",<br>
+              "Username": "Chrissy",<br>
+              "Email": "christian.nikodemus@gmail.com",<br>
+              "Password": "Careerfoundryrules",<br>
+              "Birthday": "1994-10-19T00:00:00.000Z",<br>
+              "favouriteMovies": [<br>
+                  "614020628cb22d9e16165ccb",<br>
+                  "6140209d8cb22d9e16165ccf",<br>
+                  "614020c78cb22d9e16165cd2",<br>
+                  "614020b98cb22d9e16165cd1"<br>
+              ]<br>
+          }
           </td>
         </tr>
         <tr>
@@ -185,12 +198,17 @@
         </tr>
         <tr>
           <td>Allow existing users to deregister</td>
-          <td>/userAccounts/[name]</td>
+          <td>/users/[username]</td>
           <td>DELETE</td>
-          <td>A JSON object containing a username in which will delete the associated account</td>
+          <td>A JSON object containing a username in which will delete the associated account<br>
+            Example:<br>
+            {<br>
+              "Username": "Chrissy"<br>
+          }<br>
+          </td>
           <td>A return message communicating that the user has been deleted<br>
             Example:<br>
-            The account belonging to: Christian Nikodemus was deleted.
+            Chrissy was deleted.
           </td>
         </tr>
       </table>
