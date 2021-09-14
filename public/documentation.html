@@ -132,17 +132,30 @@
         </tr>
         <tr>
           <td>Allow users to update their user info (username, password, email, date of birth)</td>
-          <td>/register/[username]</td>
+          <td>/users/[username]</td>
           <td>PUT</td>
           <td>A JSON object containing data of the updated username<br>
             Example:<br>
             {<br>
-              "username": "Chrissy",<br>
-            }
+              "Email": "chris.niko@hi.com"<br>
+              }
           </td>
-          <td>A return message communicating the success or failure of the change to username<br>
+          <td>A JSON object containing data of the new user info that was updated<br>
             Example:<br>
-            Your username has now been changed to: Chrissy
+            {<br>
+              "FavoriteMovies": [],<br>
+              "_id": "6140224c8cb22d9e16165cd3",<br>
+              "Name": "Christian Nikodemus",<br>
+              "Username": "Chrissy",<br>
+              "Email": "chris.niko@hi.com",<br>
+              "Password": "Careerfoundryrules",<br>
+              "Birthday": "1994-10-19T00:00:00.000Z",<br>
+              "favouriteMovies": [<br>
+                  "614020628cb22d9e16165ccb",<br>
+                  "6140209d8cb22d9e16165ccf",<br>
+                  "614020c78cb22d9e16165cd2"<br>
+              ]<br>
+          }
           </td>
         </tr>
         <tr>

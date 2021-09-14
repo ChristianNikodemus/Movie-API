@@ -103,19 +103,29 @@ app.get('/genres/:title', (req, res) => {
       });
   });
 
-// Allow users to update their user info (username)
+// Allow users to update their user info (username, password, email, date of birth)
   app.put('/users/:username', (req, res) => {
-    let index = userAccounts.findIndex((user) => { return user.username === req.params.username });
-
-    if (index >= 0) {
-        userAccounts[index] = Object.assign({}, userAccounts[index], req.body);
-      res.status(200).json(userAccounts[index]);
-    } else {
-      res.status(404).send('Sorry, could not change username, your username is currently: '+ req.params.username + ', please try again!');
-    }
+    Users.findOneAndUpdate({ Username: req.params.username }, { $set:
+      {
+        Name: req.body.Name,
+        Username: req.body.Username,
+        Email: req.body.Email,
+        Password: req.body.Password,
+        Birthday: req.body.Birthday
+      }
+    },
+    { new: true }, // This line makes sure that the updated document is returned
+    (err, updatedUser) => {
+      if(err) {
+        console.error(err);
+        res.status(500).send('Error: ' + err);
+      } else {
+        res.json(updatedUser);
+      }
+    });
   });
 
-// Allow users to add a movie to their list of favorites (showing only a text that a movie has been added—more on this later)
+// Allow users to add a movie to their list of favorites
 app.post('/users/:username/favourites/:id', (req, res) => {
     let index = userAccounts.findIndex((user) => {
         return user.username === req.params.username
@@ -128,6 +138,7 @@ app.post('/users/:username/favourites/:id', (req, res) => {
     }
   });
 
+// Allow users to remove a movie from their list of favorites
 app.delete('/users/:username/favourites/:id', (req, res) => {
     let index = userAccounts.findIndex((user) => {
         return user.username === req.params.username
@@ -142,7 +153,7 @@ app.delete('/users/:username/favourites/:id', (req, res) => {
 });
 
 
-// Allow existing users to deregister (showing only a text that a user email has been removed—more on this later)
+// Allow existing users to deregister
 app.delete('/users/:id', (req, res) => {
     let user = userAccounts.find((user) => { return user._id === req.params.id });
   
