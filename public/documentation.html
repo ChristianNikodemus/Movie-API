@@ -75,7 +75,7 @@
         }<br>
         </tr>
         <tr>
-          <td>Return data about a genre (description) by name/title (e.g., “Thriller”)</td>
+          <td>Return data about a genre (description) by title (e.g., “Thriller”)</td>
           <td>/genres/[title]</td>
           <td>GET</td>
           <td>n/a</td>
@@ -188,12 +188,16 @@
         </tr>
         <tr>
           <td>Allow users to remove a movie from their list of favorites</td>
-          <td>/favourites/[title]</td>
+          <td>/users/:username/movies/[id]</td>
           <td>DELETE</td>
-          <td>A JSON object containing the data of the movie that will be deleted</td>
-          <td>A return message communicating that the movie has been deleted<br>
+          <td>A JSON object containing the data of the movie that will be deleted<br>
+            {<br>
+              "_id": "ObjectId('614020b98cb22d9e16165cd1')"<br>
+          }<br>
+          </td>
+          <td>A return message communicating that the favourite movie has been deleted<br>
             Example:<br>
-            The movie: Pulp Fiction was deleted.
+            614020b98cb22d9e16165cd1 was deleted.
           </td>
         </tr>
         <tr>

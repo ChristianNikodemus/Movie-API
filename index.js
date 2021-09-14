@@ -142,17 +142,21 @@ app.post('/users/:username/movies/:id', (req, res) => {
 });
 
 // Allow users to remove a movie from their list of favorites
-app.delete('/users/:username/favourites/:id', (req, res) => {
-    let index = userAccounts.findIndex((user) => {
-        return user.username === req.params.username
-    });
-    if (index >= 0) {
-        userAccounts[index].favouriteMovies = userAccounts[index].favouriteMovies
-        .filter((id) => id !== req.params.id)
-        res.status(201).json(userAccounts[index]);
+app.delete('/users/:username/movies/:id', (req, res) => {
+  Users.findOneAndUpdate({ Username: req.params.username }, {
+     $pull: { favouriteMovies: req.params.id }
+   })
+   .then((id) => {
+    if (!id) {
+      res.status(400).send(req.params.id + ' was not found');
     } else {
-        res.status(404).send('Sorry, the user has not been found.')
+      res.status(200).send(req.params.id + ' was deleted.');
     }
+  })
+  .catch((err) => {
+    console.error(err);
+    res.status(500).send('Error: ' + err);
+  });
 });
 
 // Allow existing users to deregister
