@@ -21,15 +21,15 @@ let userSchema = mongoose.Schema({
 });
 
 let genreSchema = mongoose.Schema({
-  title: {type: String, required: true},
-  description: {type: String, required: true},
+  Title: {type: String, required: true},
+  Description: {type: String, required: true},
 });
 
 let directorSchema = mongoose.Schema({
-  name: {type: String, required: true},
-  bio: {type: String, required: true},
-  birthyear: {type: String, required: true},
-  deathyear: String
+  Name: {type: String, required: true},
+  Bio: {type: String, required: true},
+  Birthyear: {type: String, required: true},
+  Deathyear: String
 });
 
 let Movie = mongoose.model('Movie', movieSchema);
