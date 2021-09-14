@@ -75,18 +75,6 @@ app.get('/genres/:title', (req, res) => {
       });
   });
 
-// Get list of all users
-app.get('/users/:username', (req, res) => {
-    const user = userAccounts.find((user) => {
-        return user.username === req.params.username
-    })
-    if (user) {
-        res.json(user)
-    } else {
-        res.status(404).send('Sorry, user not found.');
-    }
-  });
-
 // Allow new users to register
 app.post('/users', (req, res) => {
     let newUser = req.body;
