@@ -22,14 +22,34 @@
           <td>/</td>
           <td>GET</td>
           <td>n/a</td>
-          <td>A string containing the greeting message</td>
+          <td>A string containing the greeting message
+            Example:<br>
+            Welcome to my movie API Database!
+          </td>
         </tr>
         <tr>
           <td>Return a list of ALL movies to the user</td>
           <td>/movies</td>
           <td>GET</td>
           <td>n/a</td>
-          <td>A JSON array of objects containing data of all the movies of the database</td>
+          <td>A JSON array of objects containing data of all the movies of the database<br>
+            Example:<br>
+            {<br>
+              "_id": "614020398cb22d9e16165cc9",<br>
+              "Title": "Pulp Fiction",<br>
+              "Description": "The lives of two mob hitmen, a boxer, a gangster and his wife, and a pair of diner bandits intertwine in four tales of violence and redemption.",<br>
+              "Year": "1994",<br>
+              "Genre": [<br>
+                  "614018348cb22d9e16165cb3",<br>
+                  "614018468cb22d9e16165cb4"<br>
+              ],<br>
+              "Director": [<br>
+                  "6140196f8cb22d9e16165cbf"<br>
+              ],<br>
+              "ImagePath": "pulpfiction.png",<br>
+              "Featured": true<br>
+          }<br>
+          </td>
         </tr>
         <tr>
           <td>Return data (description, genre, director, image URL, whether it’s featured or not) about a single movie by title to the user</td>
