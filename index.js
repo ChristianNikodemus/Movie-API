@@ -76,17 +76,31 @@ app.get('/genres/:title', (req, res) => {
   });
 
 // Allow new users to register
-app.post('/users', (req, res) => {
-    let newUser = req.body;
-  
-    if (!newUser.name) {
-      const message = 'Missing name in request body';
-      res.status(400).send(message);
-    } else {
-      newUser.id = uuid.v4();
-      userAccounts.push(newUser);
-      res.status(201).json(newUser);
-    }
+  app.post('/users', (req, res) => {
+    Users.findOne({ Username: req.body.Username })
+      .then((user) => {
+        if (user) {
+          return res.status(400).send(req.body.Username + 'already exists');
+        } else {
+          Users
+            .create({
+              Name: req.body.Name,
+              Username: req.body.Username,
+              Email: req.body.Email,
+              Password: req.body.Password,
+              Birthday: req.body.Birthday
+            })
+            .then((user) =>{res.status(201).json(user) })
+          .catch((error) => {
+            console.error(error);
+            res.status(500).send('Error: ' + error);
+          })
+        }
+      })
+      .catch((error) => {
+        console.error(error);
+        res.status(500).send('Error: ' + error);
+      });
   });
 
 // Allow users to update their user info (username)

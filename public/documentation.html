@@ -106,29 +106,32 @@
         </tr>
         <tr>
           <td>Allow new users to register</td>
-          <td>/register</td>
+          <td>/users</td>
           <td>POST</td>
           <td>A JSON object containing data of the new user<br>
           Example:<br>
           {<br>
-            "name": "Nick Crawford",<br>
-            "username": "Nickypoo62",<br>
-            "email": "nick.crawford@gmail.com",<br>
-            "password": "catsaretheworst"<br>
-          }
+            "Name": "Ben Vanrys",<br>
+            "Username": "Benny Boy",<br>
+            "Email": "ben.vanrys@gmail.com",<br>
+            "Password": "Iliketobuildstuff"<br>
+            }<br>
           </td>
           <td>A JSON object containing data of the new user that was added<br>
             Example:<br>
             {<br>
-              "name": "Nick Crawford",<br>
-              "username": "Nickypoo62",<br>
-              "email": "nick.crawford@gmail.com",<br>
-              "password": "catsaretheworst"<br>
-            }
+              "Name": "Ben Vanrys",<br>
+              "Username": "Benny Boy",<br>
+              "Email": "ben.vanrys@gmail.com",<br>
+              "Password": "Iliketobuildstuff",<br>
+              "FavoriteMovies": [],<br>
+              "_id": "6140b37fb8e4f104287aff46",<br>
+              "__v": 0<br>
+          }
           </td>
         </tr>
         <tr>
-          <td>Allow users to update their user info (username)</td>
+          <td>Allow users to update their user info (username, password, email, date of birth)</td>
           <td>/register/[username]</td>
           <td>PUT</td>
           <td>A JSON object containing data of the updated username<br>
