@@ -88,6 +88,7 @@ app.get('/genres/:title', passport.authenticate('jwt', { session: false }), (req
 
 // Allow new users to register
   app.post('/users', (req, res) => {
+    let hashedPassword = Users.hassPassword(req.body.Password);
     Users.findOne({ Username: req.body.Username })
       .then((user) => {
         if (user) {
@@ -98,7 +99,7 @@ app.get('/genres/:title', passport.authenticate('jwt', { session: false }), (req
               Name: req.body.Name,
               Username: req.body.Username,
               Email: req.body.Email,
-              Password: req.body.Password,
+              Password: hashedPassword,
               Birthday: req.body.Birthday
             })
             .then((user) =>{res.status(201).json(user) })
