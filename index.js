@@ -153,11 +153,11 @@ app.delete('/users/:username/movies/:id', passport.authenticate('jwt', { session
   Users.findOneAndUpdate({ Username: req.params.username }, {
      $pull: { favouriteMovies: req.params.id }
    })
-   .then((id) => {
-    if (!id) {
+   .then((user) => {
+    if (!user) {
       res.status(400).send(req.params.id + ' was not found');
     } else {
-      res.status(200).send(req.params.id + ' was deleted.');
+      res.json(user);
     }
   })
   .catch((err) => {
