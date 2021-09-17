@@ -1,8 +1,7 @@
 const express = require('express'),
   morgan = require('morgan'),
-  uuid = require('uuid'),
+  //uuid = require('uuid'),
   bodyParser = require('body-parser'),
-  //methodOverride = require('method-override'),
   mongoose = require('mongoose');
   
 const Models = require('./models.js');
@@ -20,14 +19,12 @@ app.use(bodyParser.urlencoded({extended: true}));
 
 app.use(bodyParser.json());
 
-//app.use(methodOverride());
-
 app.use(express.static('public'));
 
 app.use(morgan('common'));
 
 // Authorization
-let auth = require('./auth')(app);
+require('./auth')(app);
 
 const passport = require('passport');
 require('./passport');
