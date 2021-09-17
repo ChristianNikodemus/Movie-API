@@ -23,6 +23,10 @@ app.use(express.static('public'));
 
 app.use(morgan('common'));
 
+// Cross-Origin Resource Sharing (CORS)
+const cors = require('cors');
+app.use(cors());
+
 // Authorization
 require('./auth')(app);
 
