@@ -96,13 +96,14 @@ app.get('/genres/:title', passport.authenticate('jwt', { session: false }), (req
     check('Password', 'Password is required').not().isEmpty(),
     check('Email', 'Email does not appear to be valid').isEmail()
   ], (req, res) => {
+    // check the validation object for errors
     let errors = validationResult(req);
 
     if (!errors.isEmpty()) {
       return res.status(422).json({ errors: errors.array() });
     }
 
-    let hashedPassword = Users.hassPassword(req.body.Password);
+    let hashedPassword = Users.hashPassword(req.body.Password);
     Users.findOne({ Username: req.body.Username })
       .then((user) => {
         if (user) {
@@ -130,7 +131,8 @@ app.get('/genres/:title', passport.authenticate('jwt', { session: false }), (req
   });
 
 // Allow users to update their user info (username, password, email, date of birth)
-  app.put('/users/:username', passport.authenticate('jwt', { session: false }), [
+  app.put('/users/:username', passport.authenticate('jwt', { session: false }),
+  [
     check('Username', 'Username is required').isLength({min: 5}),
     check('Username', 'Username contains non alphanumeric characters - not allowed.').isAlphanumeric(),
     check('Password', 'Password is required').not().isEmpty(),
@@ -142,12 +144,13 @@ app.get('/genres/:title', passport.authenticate('jwt', { session: false }), (req
       return res.status(422).json({ errors: errors.array() });
     }
 
+    let hashedPassword = Users.hashPassword(req.body.Password);
     Users.findOneAndUpdate({ Username: req.params.username }, { $set:
       {
         Name: req.body.Name,
         Username: req.body.Username,
         Email: req.body.Email,
-        Password: req.body.Password,
+        Password: hashedPassword,
         Birthday: req.body.Birthday
       }
     },
