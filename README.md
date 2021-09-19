@@ -15,3 +15,6 @@ Technical Features:
 - Includes data validation logic.
 - Meets all data security regulations.
 - Deployed and publicly accessible on GitHub and to Heroku.
+
+Heroku Deployment Link:
+https://git.heroku.com/sheltered-tor-29845.git
