@@ -91,10 +91,10 @@ app.get('/genres/:title', passport.authenticate('jwt', { session: false }), (req
 // Allow new users to register
   app.post('/users',
   [
-    check('Username', 'Username is required').isLength({min: 5}),
-    check('Username', 'Username contains non alphanumeric characters - not allowed.').isAlphanumeric(),
-    check('Password', 'Password is required').not().isEmpty(),
-    check('Email', 'Email does not appear to be valid').isEmail()
+    check('Username', 'Username needs to be at least 5 characters long.').isLength({min: 5}),
+    check('Username', 'Username cannot contain non alphanumeric characters.').isAlphanumeric(),
+    check('Password', 'Password is required.').not().isEmpty(),
+    check('Email', 'Email does not appear to be valid.').isEmail()
   ], (req, res) => {
     // check the validation object for errors
     let errors = validationResult(req);
@@ -133,10 +133,10 @@ app.get('/genres/:title', passport.authenticate('jwt', { session: false }), (req
 // Allow users to update their user info (username, password, email, date of birth)
   app.put('/users/:username', passport.authenticate('jwt', { session: false }),
   [
-    check('Username', 'Username is required').isLength({min: 5}),
-    check('Username', 'Username contains non alphanumeric characters - not allowed.').isAlphanumeric(),
-    check('Password', 'Password is required').not().isEmpty(),
-    check('Email', 'Email does not appear to be valid').isEmail()
+    check('Username', 'Username needs to be at least 5 characters long.').isLength({min: 5}),
+    check('Username', 'Username cannot contain non alphanumeric characters.').isAlphanumeric(),
+    check('Password', 'Password is required.').not().isEmpty(),
+    check('Email', 'Email does not appear to be valid.').isEmail()
   ], (req, res) => {
     let errors = validationResult(req);
 
