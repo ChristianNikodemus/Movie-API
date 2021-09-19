@@ -17,4 +17,4 @@ Technical Features:
 - Deployed and publicly accessible on GitHub and to Heroku.
 
 Heroku Deployment Link:
-https://git.heroku.com/my-films-db.git
+https://my-films-db.herokuapp.com/
