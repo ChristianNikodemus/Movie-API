@@ -18,3 +18,6 @@ Technical Features:
 
 Heroku Deployment Link:
 https://my-films-db.herokuapp.com/
+
+API is connected via Mongo DB Atlas:
+https://cloud.mongodb.com/v2/6147ba5e4a2e2d2cf45008a5#clusters/detail/myFilmsDB
