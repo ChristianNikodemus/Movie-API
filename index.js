@@ -13,10 +13,7 @@ const Users = Models.User;
 const Genres = Models.Genre;
 const Directors = Models.Director;
 
-mongoose.connect("mongodb://localhost:27017/myFilmsDB", {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-});
+mongoose.connect("mongodb://localhost:27017/myFilmsDB", { useNewUrlParser: true, useUnifiedTopology: true });
 
 //mongoose.connect(process.env.CONNECTION_URI, { useNewUrlParser: true, useUnifiedTopology: true });
 
@@ -225,7 +222,7 @@ app.post(
     Users.findOneAndUpdate(
       { Username: req.params.username },
       {
-        $push: { favouriteMovies: req.params.id },
+        $push: { FavouriteMovies: req.params.id },
       },
       { new: true }, // This line makes sure that the updated document is returned
       (err, updatedUser) => {
@@ -248,7 +245,7 @@ app.delete(
     Users.findOneAndUpdate(
       { Username: req.params.username },
       {
-        $pull: { favouriteMovies: req.params.id },
+        $pull: { FavouriteMovies: req.params.id },
       },
       { new: true }
     )
