@@ -13,9 +13,9 @@ const Users = Models.User;
 const Genres = Models.Genre;
 const Directors = Models.Director;
 
-//mongoose.connect('mongodb://localhost:27017/myFilmsDB', { useNewUrlParser: true, useUnifiedTopology: true });
+mongoose.connect('mongodb://localhost:27017/myFilmsDB', { useNewUrlParser: true, useUnifiedTopology: true });
 
-mongoose.connect(process.env.CONNECTION_URI, { useNewUrlParser: true, useUnifiedTopology: true });
+//mongoose.connect(process.env.CONNECTION_URI, { useNewUrlParser: true, useUnifiedTopology: true });
 
 const app = express();
 
@@ -45,8 +45,10 @@ app.get('/', (req, res) => {
 // Return a list of ALL movies to the user
 app.get('/movies', passport.authenticate('jwt', { session: false }), (req, res) => {
   Movies.find()
+  .populate('Genre')
+  .populate('Director')
     .then((movies) => {
-      res.status(201).json(movies);
+      res.json(movies);
     })
     .catch((err) => {
       console.error(err);
@@ -55,8 +57,10 @@ app.get('/movies', passport.authenticate('jwt', { session: false }), (req, res) 
 });
 
 // Return data (description, genre, director, image URL, whether it’s featured or not) about a single movie by title to the user
-app.get('/movies/:title', passport.authenticate('jwt', { session: false }), (req, res) => {
-  Movies.findOne({ Title: req.params.title })
+app.get('/movies/:id', passport.authenticate('jwt', { session: false }), (req, res) => {
+  Movies.findById(req.params.id)
+  .populate('Genre')
+  .populate('Director')
     .then((movie) => {
       res.json(movie);
     })
@@ -67,8 +71,8 @@ app.get('/movies/:title', passport.authenticate('jwt', { session: false }), (req
 });
 
 // Return data about a genre (description) by name/title (e.g., “Thriller”)
-app.get('/genres/:title', passport.authenticate('jwt', { session: false }), (req, res) => {
-  Genres.findOne({ Title: req.params.title })
+app.get('/genres/:id', passport.authenticate('jwt', { session: false }), (req, res) => {
+  Genres.findById(req.params.id)
     .then((genre) => {
       res.json(genre);
     })
@@ -79,8 +83,8 @@ app.get('/genres/:title', passport.authenticate('jwt', { session: false }), (req
 });
 
 // Return data about a director (bio, birth year, death year) by name
-  app.get('/directors/:name', passport.authenticate('jwt', { session: false }), (req, res) => {
-    Directors.findOne({ Name: req.params.name })
+  app.get('/directors/:id', passport.authenticate('jwt', { session: false }), (req, res) => {
+    Directors.findById(req.params.id)
       .then((director) => {
         res.json(director);
       })
@@ -135,10 +139,10 @@ app.get('/genres/:title', passport.authenticate('jwt', { session: false }), (req
 // Allow users to update their user info (username, password, email, date of birth)
   app.put('/users/:username', passport.authenticate('jwt', { session: false }),
   [
-    check('Username', 'Username needs to be at least 5 characters long.').isLength({min: 5}),
-    check('Username', 'Username cannot contain non alphanumeric characters.').isAlphanumeric(),
-    check('Password', 'Password is required.').not().isEmpty(),
-    check('Email', 'Email does not appear to be valid.').isEmail()
+    check('Username', 'Username needs to be at least 5 characters long.').isLength({min: 5}).optional({checkFalsy: true}),
+    check('Username', 'Username cannot contain non alphanumeric characters.').isAlphanumeric().optional({checkFalsy: true}),
+    check('Password', 'Password is required.').not().isEmpty().optional({checkFalsy: true}),
+    check('Email', 'Email does not appear to be valid.').isEmail().optional({checkFalsy: true})
   ], (req, res) => {
     let errors = validationResult(req);
 
@@ -146,13 +150,12 @@ app.get('/genres/:title', passport.authenticate('jwt', { session: false }), (req
       return res.status(422).json({ errors: errors.array() });
     }
 
-    let hashedPassword = Users.hashPassword(req.body.Password);
     Users.findOneAndUpdate({ Username: req.params.username }, { $set:
       {
         Name: req.body.Name,
         Username: req.body.Username,
         Email: req.body.Email,
-        Password: hashedPassword,
+        Password: req.body.Password ? Users.hashPassword(req.body.Password) : undefined,
         Birthday: req.body.Birthday
       }
     },
@@ -187,7 +190,8 @@ app.post('/users/:username/movies/:id', passport.authenticate('jwt', { session: 
 app.delete('/users/:username/movies/:id', passport.authenticate('jwt', { session: false }), (req, res) => {
   Users.findOneAndUpdate({ Username: req.params.username }, {
      $pull: { favouriteMovies: req.params.id }
-   })
+   },
+   { new: true })
    .then((user) => {
     if (!user) {
       res.status(400).send(req.params.id + ' was not found');
