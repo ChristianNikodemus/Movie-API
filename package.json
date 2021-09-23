@@ -1,5 +1,5 @@
 {
-  "name": "movie-api",
+  "name": "myfilmsdb",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -10,15 +10,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ChristianNikodemus/Movie-API.git"
+    "url": "git+https://github.com/ChristianNikodemus/myFilmsDB"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/ChristianNikodemus/Movie-API/issues"
+    "url": "https://github.com/ChristianNikodemus/myFilmsDB/issues"
   },
-  "homepage": "https://github.com/ChristianNikodemus/Movie-API#readme",
+  "homepage": "https://github.com/ChristianNikodemus/myFilmsDB#readme",
   "dependencies": {
     "bcrypt": "^5.0.1",
     "body-parser": "^1.19.0",
