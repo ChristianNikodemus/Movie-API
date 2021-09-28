@@ -23,13 +23,13 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use(bodyParser.json());
 
-app.use(express.static("public"));
-
 app.use(morgan("common"));
 
 // Cross-Origin Resource Sharing (CORS)
 const cors = require("cors");
 app.use(cors());
+
+app.use(express.static("public"));
 
 // Authorization
 require("./auth")(app);
