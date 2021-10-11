@@ -176,6 +176,26 @@ app.post(
   }
 );
 
+// Allow existing users to retrieve profile information
+app.get(
+  "/users/:username",
+  passport.authenticate("jwt", { session: false }),
+  (req, res) => {
+    Users.findOne({ Username: req.params.username })
+      .then((user) => {
+        if (!user) {
+          res.status(400).send(req.params.username + " was not found");
+        } else {
+          res.json(user);
+        }
+      })
+      .catch((err) => {
+        console.error(err);
+        res.status(500).send("Error: " + err);
+      });
+  }
+);
+
 // Allow users to update their user info (username, password, email, date of birth)
 app.put(
   "/users/:username",
@@ -228,6 +248,26 @@ app.put(
   }
 );
 
+// Allow existing users to deregister
+app.delete(
+  "/users/:username",
+  passport.authenticate("jwt", { session: false }),
+  (req, res) => {
+    Users.findOneAndRemove({ Username: req.params.username })
+      .then((user) => {
+        if (!user) {
+          res.status(400).send(req.params.username + " was not found");
+        } else {
+          res.status(200).send(req.params.username + " was deleted.");
+        }
+      })
+      .catch((err) => {
+        console.error(err);
+        res.status(500).send("Error: " + err);
+      });
+  }
+);
+
 // Allow users to add a movie to their list of favorites
 app.post(
   "/users/:username/movies/:id",
@@ -277,25 +317,6 @@ app.delete(
   }
 );
 
-// Allow existing users to deregister
-app.delete(
-  "/users/:username",
-  passport.authenticate("jwt", { session: false }),
-  (req, res) => {
-    Users.findOneAndRemove({ Username: req.params.username })
-      .then((user) => {
-        if (!user) {
-          res.status(400).send(req.params.username + " was not found");
-        } else {
-          res.status(200).send(req.params.username + " was deleted.");
-        }
-      })
-      .catch((err) => {
-        console.error(err);
-        res.status(500).send("Error: " + err);
-      });
-  }
-);
 
 // Error response
 app.use((err, req, res, next) => {
