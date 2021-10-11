@@ -274,7 +274,7 @@ app.post(
   passport.authenticate("jwt", { session: false }),
   (req, res) => {
     Users.findOneAndUpdate(
-      { Username: req.params.username },
+      { Username: req.params.username, FavouriteMovies: { $ne: req.params.id } },
       {
         $push: { FavouriteMovies: req.params.id },
       },
@@ -284,7 +284,11 @@ app.post(
           console.error(err);
           res.status(500).send("Error: " + err);
         } else {
-          res.json(updatedUser);
+          if (!updatedUser) {
+            res.status(400).send("The movie is already favourited.")
+          } else{
+            res.json(updatedUser);
+          }
         }
       }
     );
