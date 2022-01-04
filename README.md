@@ -1,8 +1,12 @@
+# myFilms - Database
+
 Welcome to myFilmsDB. This project is a API Database that I built from scratch!
 
-Objective: To build the server-side component of a “movies” web application. The web application will provide users with access to information about different movies, directors, and genres. Users will be able to sign up, update their personal information, and create a list of their favorite movies.
+## Objective
 
-Technical Features:
+To build the server-side component of a “movies” web application. The web application will provide users with access to information about different movies, directors, and genres. Users will be able to sign up, update their personal information, and create a list of their favorite movies.
+
+### Technical Features
 
 - Node.js and Express for the backend.
 - REST architecture, with URL endpoints corresponding to the data.
@@ -16,6 +20,8 @@ Technical Features:
 - Includes data validation logic.
 - Meets all data security regulations.
 - Deployed and publicly accessible on GitHub and to Heroku.
+
+### Links
 
 Heroku Deployment Link:
 https://my-films-db.herokuapp.com/
