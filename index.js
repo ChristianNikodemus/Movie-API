@@ -15,7 +15,10 @@ const Directors = Models.Director;
 
 //mongoose.connect("mongodb://localhost:27017/myFilmsDB", { useNewUrlParser: true, useUnifiedTopology: true });
 
-mongoose.connect(process.env.CONNECTION_URI, { useNewUrlParser: true, useUnifiedTopology: true });
+mongoose.connect(process.env.CONNECTION_URI, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+});
 
 const app = express();
 
@@ -29,14 +32,17 @@ app.use(morgan("common"));
 //const cors = require("cors");
 //app.use(cors());
 
-app.use(function(req, res, next) {
-  res.header('Access-Control-Allow-Origin', req.get('Origin') || '*');
-  res.header('Access-Control-Allow-Credentials', 'true');
-  res.header('Access-Control-Allow-Methods', 'GET,HEAD,PUT,PATCH,POST,DELETE');
-  res.header('Access-Control-Expose-Headers', 'Content-Length');
-  res.header('Access-Control-Allow-Headers', 'Accept, Authorization, Content-Type, X-Requested-With, Range');
-  res.header('Cross-Origin-Resource-Policy', 'cross-origin');
-  if (req.method === 'OPTIONS') {
+app.use(function (req, res, next) {
+  res.header("Access-Control-Allow-Origin", req.get("Origin") || "*");
+  res.header("Access-Control-Allow-Credentials", "true");
+  res.header("Access-Control-Allow-Methods", "GET,HEAD,PUT,PATCH,POST,DELETE");
+  res.header("Access-Control-Expose-Headers", "Content-Length");
+  res.header(
+    "Access-Control-Allow-Headers",
+    "Accept, Authorization, Content-Type, X-Requested-With, Range"
+  );
+  res.header("Cross-Origin-Resource-Policy", "cross-origin");
+  if (req.method === "OPTIONS") {
     return res.send(200);
   } else {
     return next();
@@ -59,7 +65,7 @@ app.get("/", (req, res) => {
 // Return a list of ALL movies to the user
 app.get(
   "/movies",
-  passport.authenticate('jwt', { session: false }),
+  passport.authenticate("jwt", { session: false }),
   (req, res) => {
     Movies.find()
       .populate("Genre")
@@ -274,7 +280,10 @@ app.post(
   passport.authenticate("jwt", { session: false }),
   (req, res) => {
     Users.findOneAndUpdate(
-      { Username: req.params.username, FavouriteMovies: { $ne: req.params.id } },
+      {
+        Username: req.params.username,
+        FavouriteMovies: { $ne: req.params.id },
+      },
       {
         $push: { FavouriteMovies: req.params.id },
       },
@@ -285,8 +294,8 @@ app.post(
           res.status(500).send("Error: " + err);
         } else {
           if (!updatedUser) {
-            res.status(400).send("The movie is already favourited.")
-          } else{
+            res.status(400).send("The movie is already favourited.");
+          } else {
             res.json(updatedUser);
           }
         }
