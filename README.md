@@ -33,7 +33,7 @@ https://cloud.mongodb.com/v2/6147ba5e4a2e2d2cf45008a5#clusters/detail/myFilmsDB
 
 ### View JSDoc Documentation
 
-To open the JSDoc documentation, simply navigate to folder called "index.html" at the first level of this project, then find the "index.html" file and open it within your internet browser.
+To open the JSDoc documentation, simply navigate to folder called "out" at the first level of this project, then find the "index.html" file and open it within your internet browser.
 
 ### Build JSDoc Documentation
 
