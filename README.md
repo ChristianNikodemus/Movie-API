@@ -33,8 +33,8 @@ https://cloud.mongodb.com/v2/6147ba5e4a2e2d2cf45008a5#clusters/detail/myFilmsDB
 
 ### View JSDoc Documentation
 
-To open the JSDoc documentation, simply navigate to folder called "?" at the first level of this project, then find the "index.html" file and open it within your internet browser.
+To open the JSDoc documentation, simply navigate to folder called "index.html" at the first level of this project, then find the "index.html" file and open it within your internet browser.
 
 ### Build JSDoc Documentation
 
-You may want to re-build the documentation, which is a benefit for if say for example, if another contributor adds additional JSDoc comments. First, ensure you are navigated to the top level this projects folder structure within terminal. Then, enter the command `?`. This will rebuild the JSDoc documentation.
+You may want to re-build the documentation, which is a benefit for if say for example, if another contributor adds additional JSDoc comments. First, ensure you are navigated to the top level this projects folder structure within terminal. Then, enter the command `jsdoc *`. This will rebuild the JSDoc documentation.
